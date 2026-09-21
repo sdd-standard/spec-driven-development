@@ -8,6 +8,8 @@
 [![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#implementações-oficiais)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
+> 🇺🇸 [Read in English](./README.en.md)
+
 ---
 
 ## De Onde Viemos: A Evolução Natural do Vibe Coding
@@ -50,7 +52,7 @@ flowchart TD
 | **P1** | **A especificação é a fonte da verdade** | O requisito mudou? A mudança começa na spec, nunca no código. |
 | **P2** | **Constitution antes da especificação** | Regras globais inegociáveis (qualidade, testes, segurança, arquitetura) residem em `constitution.md` e governam todas as fases. |
 | **P3** | **A especificação deve ser viva** | A spec evolui continuamente junto com o software. Spec desatualizada é peso morto. |
-| **P4** | **Rastreabilidade de ponta a ponta** | Cadeia obrigatória: `Objetivo (Intent) → Requisito (GEARS) → Decisão de Design (DES) → Tarefa (TASK) → Critério de Aceite (AC) → Teste → Código`. |
+| **P4** | **Rastreabilidade de ponta a ponta** | Cadeia obrigatória: `Objetivo (Intent) → Requisito (GEARS) → Decisão de Design (DES) → Tarefa (TASK) → Critério de Aceite (AC) → Teste → Código`. Materializada em `09-traceability.md`. |
 | **P5** | **Requisitos devem ser verificáveis** | Termos vagos ("rápido", "robusto", "simples") são proibidos; transformam-se em métricas observáveis (SLAs, tempos, status). |
 | **P6** | **Ambiguidade tratada cedo** | Lacunas não são preenchidas por suposição. O que não foi definido vira explicitamente `PENDENTE DE DEFINIÇÃO` e vai para o log de riscos. |
 | **P7** | **Design vem antes da execução** | Arquitetura, componentes, integrações e trade-offs justificados são formalizados antes de qualquer linha de código. |
@@ -130,6 +132,22 @@ flowchart TD
     M -. Injeção na Sessão .-> H
 ```
 
+### Maturidade dos Artefatos
+
+Todo artefato SDD segue um ciclo de maturidade explícito:
+
+```text
+Draft  →  Reviewed  →  Approved
+  ↑                       |
+  └── Mudança via Delta ──┘
+```
+
+- **Draft**: Primeira versão gerada pelo agente. Pode conter lacunas marcadas como `PENDENTE DE DEFINIÇÃO`.
+- **Reviewed**: O usuário revisou, fez perguntas e o agente ajustou. Lacunas críticas foram resolvidas.
+- **Approved**: O usuário aprovou explicitamente. O artefato pode ser usado como base para derivar os seguintes.
+
+Nenhuma fase avança sobre artefatos que não atingiram pelo menos `Reviewed`. Quality Gates (P9) validam a consistência entre fases.
+
 ### Evolução Contínua via Delta Specs
 Após o baseline inicial (greenfield), a especificação central não é reescrita diretamente. Mudanças evoluem via **Delta Specs**:
 
@@ -162,22 +180,18 @@ O SDD Puro é agnóstico. A operacionalização do método é distribuída atrav
 
 O SDD é o conjunto de princípios essenciais; diversos projetos open source operacionalizam facetas do modelo:
 
-```mermaid
-flowchart LR
-    A[SDD Puro] --> B[Constitution / Princípios]
-    A --> C[Spec como Fonte da Verdade]
-    A --> D[Rastreabilidade]
-    A --> E[Design antes do Código]
-    A --> F[Tasks como Ledger]
-    A --> G[Validação Contínua]
-    A --> H[Delta Specs]
-    A --> I[Estado fora do Chat]
-
-    B & C & D & E & F & G --> SK[GitHub Spec Kit]
-    C & D & F & H --> OS[OpenSpec]
-    B & C & E & F & I --> BM[BMAD-METHOD]
-    B & C & D & E & F & G & H & I --> SDD_TOOLS[sdd-claude / sdd-antigravity]
-```
+| Capacidade | SDD Puro | GitHub Spec Kit | OpenSpec | BMAD-METHOD |
+|:---|:---:|:---:|:---:|:---:|
+| Constitution / Princípios Globais | ✅ | ✅ | — | ✅ |
+| Spec como Fonte da Verdade | ✅ | ✅ | ✅ | ✅ |
+| Rastreabilidade Ponta a Ponta | ✅ | ✅ | ✅ | — |
+| Design antes do Código | ✅ | ✅ | — | ✅ |
+| Tasks como Ledger | ✅ | ✅ | ✅ | ✅ |
+| Validação Contínua (Quality Gates) | ✅ | ✅ | — | — |
+| Delta Specs (Evolução Incremental) | ✅ | — | ✅ | — |
+| Estado fora do Chat (P11) | ✅ | — | — | ✅ |
+| Sintaxe Formal (GEARS) | ✅ | — | — | — |
+| Plugins Nativos Multi-Agente | ✅ | — | — | — |
 
 - **GitHub Spec Kit (`github/spec-kit`)**: Excelente fluxo guiado por comandos sequenciais (`/specify`, `/plan`, `/tasks`, `/implement`).
 - **OpenSpec (`Fission-AI/openspec`)**: Pioneiro no modelo minimalista de Delta Specs (`specs/` vs `changes/`).
