@@ -1,0 +1,113 @@
+site_name: "SDD Standard — Spec-Driven Development"
+site_url: https://sdd-standard.github.io/spec-driven-development/
+site_description: "The canonical standard for Spec-Driven Development (SDD) — a governance protocol for Human-AI engineering, grounded in ISO/IEEE 29148."
+site_author: "SDD Standard Organization"
+
+repo_name: sdd-standard/spec-driven-development
+repo_url: https://github.com/sdd-standard/spec-driven-development
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sdd-standard
+  generator: false
+
+copyright: "Copyright &copy; 2026 SDD Standard Organization — MIT License"
+
+nav:
+  - Home: index.md
+  - Manifesto:
+    - "🇧🇷 Português": manifesto/pt.md
+    - "🇺🇸 English": manifesto/en.md
+  - Formal Specification:
+    - "01. Introduction": spec/01-introduction.md
+    - "02. Terminology": spec/02-terminology.md
+    - "03. Principles (P1–P11)": spec/03-principles.md
+    - "04. GEARS vs EARS": spec/04-gears-syntax.md
+    - "05. Artifact Model": spec/05-artifact-model.md
+    - "06. Delta Spec Lifecycle": spec/06-delta-specs.md
+    - "07. Conformance": spec/07-conformance.md
+  - Example Project:
+    - "Overview": example/index.md
+    - "Constitution": example/constitution.md
+    - "00 Project Brief": example/00-project-brief.md
+    - "01 Discovery": example/01-discovery.md
+    - "02 Spec": example/02-spec.md
+    - "03 Requirements (GEARS)": example/03-requirements.md
+    - "04 Domain Model": example/04-domain-model.md
+    - "05 Design": example/05-design.md
+    - "06 Roadmap": example/06-roadmap.md
+    - "07 Tasks": example/07-tasks.md
+    - "08 Acceptance": example/08-acceptance.md
+    - "09 Traceability": example/09-traceability.md
+    - "10 Validation": example/10-validation.md
+    - "11 Project Memory": example/11-project-memory.md
+    - "Active Change: Labels": example/changes-labels.md
+    - "Archived Change: Sharing": example/archive-sharing.md
+  - Plugins:
+    - "Antigravity IDE": https://github.com/sdd-standard/sdd-antigravity
+    - "Claude Code": https://github.com/sdd-standard/sdd-claude
