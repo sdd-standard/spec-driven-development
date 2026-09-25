@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sdd-standard.github.io/spec-driven-development/sitemap.xml
