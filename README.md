@@ -45,6 +45,22 @@ flowchart TD
 
 ---
 
+## Especificação Formal (`spec/`)
+
+O SDD não é apenas um "manifesto de boas intenções". Ele é um protocolo de governança rigoroso fundamentado em padrões da indústria (ISO/IEEE 29148, EARS). 
+
+Para arquitetos, engenheiros seniores e desenvolvedores de plugins que buscam entender a teoria, a máquina de estados e as regras de conformidade por trás do SDD, consulte a nossa **[Especificação Formal (Formal Spec)](./spec)**.
+
+*   [01. Introduction (Paradigm Shift & AI Era)](./spec/01-introduction.md)
+*   [02. Terminology](./spec/02-terminology.md)
+*   [03. The 11 Principles Foundation](./spec/03-principles.md)
+*   [04. GEARS Syntax vs EARS](./spec/04-gears-syntax.md)
+*   [05. Artifact Model](./spec/05-artifact-model.md)
+*   [06. Delta Spec Lifecycle](./spec/06-delta-specs.md)
+*   [07. SDD Conformance](./spec/07-conformance.md)
+
+---
+
 ## Os 11 Princípios Inegociáveis (P1 a P11)
 
 | # | Princípio | Significado Operacional |

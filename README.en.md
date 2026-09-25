@@ -45,6 +45,22 @@ flowchart TD
 
 ---
 
+## Formal Specification (`spec/`)
+
+SDD is not just a "manifesto of good intentions." It is a rigorous governance protocol grounded in industry standards (ISO/IEEE 29148, EARS). 
+
+For architects, senior engineers, and plugin developers looking to understand the theory, state machines, and conformance rules behind SDD, please consult our **[Formal Specification](./spec)**.
+
+*   [01. Introduction (Paradigm Shift & AI Era)](./spec/01-introduction.md)
+*   [02. Terminology](./spec/02-terminology.md)
+*   [03. The 11 Principles Foundation](./spec/03-principles.md)
+*   [04. GEARS Syntax vs EARS](./spec/04-gears-syntax.md)
+*   [05. Artifact Model](./spec/05-artifact-model.md)
+*   [06. Delta Spec Lifecycle](./spec/06-delta-specs.md)
+*   [07. SDD Conformance](./spec/07-conformance.md)
+
+---
+
 ## The 11 Non-Negotiable Principles (P1 to P11)
 
 | # | Principle | Operational Meaning |
