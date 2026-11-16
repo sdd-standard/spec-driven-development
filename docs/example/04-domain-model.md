@@ -1,4 +1,6 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de example/docs/sdd/04-domain-model.md — edite a fonte, não esta cópia. -->
 # 04 — Domain Model
+Status: Approved
 
 ## Bounded Contexts
 
@@ -9,8 +11,8 @@ Responsible for user identity, credential management, and session tokens.
 
 ### BC-2: Task Management
 Responsible for boards, tasks, status lifecycle, and assignment.
-- **Ubiquitous Language:** Board, Task, Status (todo, in_progress, done), Assignee, Owner, Due Date.
-- **Isolation:** This context owns `boards` and `tasks` tables. It references `users.id` as a foreign key but never reads or writes user credentials.
+- **Ubiquitous Language:** Board, Board Member, Task, Status (todo, in_progress, done), Assignee, Owner, Due Date.
+- **Isolation:** This context owns `boards`, `board_members`, and `tasks` tables. It references `users.id` as a foreign key but never reads or writes user credentials.
 
 ## Entity Model
 
@@ -20,6 +22,15 @@ erDiagram
     USER ||--o{ TASK : "is assigned to"
     USER ||--o{ REFRESH_TOKEN : holds
     BOARD ||--o{ TASK : contains
+    BOARD ||--o{ BOARD_MEMBER : "shared with"
+    USER ||--o{ BOARD_MEMBER : "is member"
+
+    BOARD_MEMBER {
+        uuid board_id FK
+        uuid user_id FK
+        string role
+        timestamp joined_at
+    }
 
     USER {
         uuid id PK
@@ -61,7 +72,7 @@ erDiagram
 
 ## Aggregates
 - **User Aggregate:** `User` (root) + `RefreshToken` (child). Invariant: a user can have at most 5 active refresh tokens.
-- **Board Aggregate:** `Board` (root) + `Task[]` (children). Invariant: deleting a board soft-deletes all its tasks.
+- **Board Aggregate:** `Board` (root) + `Task[]` + `BoardMember[]` (children). Invariants: deleting a board soft-deletes all its tasks; removing a member unassigns them from every task on that board.
 
 ## Value Objects
 - **Email:** Validated format (RFC 5322), lowercase-normalized, unique per organization.

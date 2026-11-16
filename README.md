@@ -2,11 +2,11 @@
 
 > **A especificação é a fonte da verdade. O código deve expressá-la, nunca substituí-la.**
 
-[![Standard: Pure SDD](https://img.shields.io/badge/Standard-Pure%20SDD%20v2.1-blue.svg)](#princípios-fundamentais-p1-a-p11)
+[![Standard: Pure SDD](https://img.shields.io/badge/Standard-Pure%20SDD%20v2.1-blue.svg)](#os-11-princípios-inegociáveis-p1-a-p11)
 [![Status: Active](https://img.shields.io/badge/Status-Living%20Standard-brightgreen.svg)](#)
-[![Tools: Claude Code](https://img.shields.io/badge/Tooling-Claude%20Code-purple.svg)](#implementações-oficiais)
-[![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#implementações-oficiais)
-[![Tools: Hermes Agent](https://img.shields.io/badge/Tooling-Hermes%20Agent-00b894.svg)](#implementações-oficiais)
+[![Tools: Claude Code](https://img.shields.io/badge/Tooling-Claude%20Code-purple.svg)](#implementações-oficiais-tooling-hub)
+[![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#implementações-oficiais-tooling-hub)
+[![Tools: Hermes Agent](https://img.shields.io/badge/Tooling-Hermes%20Agent-00b894.svg)](#implementações-oficiais-tooling-hub)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 > 🇺🇸 [Read in English](./README.en.md)
@@ -163,7 +163,12 @@ Draft  →  Reviewed  →  Approved
 - **Reviewed**: O usuário revisou, fez perguntas e o agente ajustou. Lacunas críticas foram resolvidas.
 - **Approved**: O usuário aprovou explicitamente. O artefato pode ser usado como base para derivar os seguintes.
 
-Nenhuma fase avança sobre artefatos que não atingiram pelo menos `Reviewed`. Quality Gates (P9) validam a consistência entre fases.
+Regras do ciclo:
+- **Só o usuário promove um artefato.** O agente nunca muda o `Status` de um artefato por conta própria; a aprovação pode ser em bloco ("aprovar 00 a 02?").
+- **Nenhuma fase avança sobre artefato abaixo de `Reviewed`.** Quando um fluxo consome um artefato `Reviewed` que ainda não é `Approved` (comum em *spec-on-touch*), registra-se uma **dívida de maturidade** com o *snapshot* dos IDs e do texto consumidos. Na aprovação, se nada mudou, a dívida fecha; se mudou, os dependentes são revalidados antes.
+- **Item `Auto-Approved`.** Um item (`FR`, `NFR`, `DES`, `AC`) pode ser marcado `Auto-Approved` pelo agente somente se não tocar as seções de Segurança (4) e de Calibração de Criticidade (6) da `constitution.md`, derivar 1:1 de um item já aprovado pelo usuário (ou aplicar uma convenção escrita na constitution) e trouxer um `Motivo:`. Esses itens são listados no pedido de aprovação do artefato e nunca viram `Approved` sem decisão do usuário.
+
+Quality Gates (P9) validam a consistência entre fases.
 
 ### Evolução Contínua via Delta Specs
 Após o baseline inicial (greenfield), a especificação central não é reescrita diretamente. Mudanças evoluem via **Delta Specs**:
@@ -199,7 +204,10 @@ changes/<nome-da-mudanca>/
    | **`Low`** | **NÃO BLOQUEIA** *(Vai para `10-validation.md`)* | Divergência cosmética, nomenclatura interna menor ou melhoria opcional além do `NFR-xxx`. |
 
 3. **Paginação Elástica (*Overflow Sharding* `-02.md`) com Auto-Exclusão**:
-   Os artefatos voláteis `10-validation.md` e `11-project-memory.md` possuem teto de **150 linhas por arquivo** e **máximo de 4 a 5 linhas por parágrafo** (proibindo parágrafos-quilômetro de linha única). Quando o volume legítimo de dívidas ou frentes ativas ultrapassa 150 linhas, o agente cria arquivos paginados irmãos (`10-validation-02.md`, `11-project-memory-02.md`), referencia-os no topo do arquivo principal e **os exclui automaticamente** assim que as pendências são sanadas e o conteúdo volta a caber no arquivo principal.
+   Os artefatos voláteis `10-validation.md` e `11-project-memory.md` paginam ao atingir **150 linhas ou um teto de caracteres**, o que vier primeiro: 16.000 no backlog de dívidas e, na memória (injetada em toda sessão), o teto definido por cada plugin. Algumas plataformas limitam quanto texto um hook pode injetar; por isso cada plugin injeta o contexto por prioridade dentro do orçamento da sua plataforma e, quando a memória não cabe, injeta só as seções críticas com a instrução explícita de ler o arquivo inteiro. Não há limite de tamanho por dívida: cada `VAL` traz os campos obrigatórios (o quê, evidência `arquivo:linha`, impacto, recomendação, critério de fechamento e histórico datado) e nunca é resumida para caber; dívidas com frentes independentes são fragmentadas. Atingido o gatilho, o agente cria arquivos paginados irmãos (`10-validation-02.md`, `11-project-memory-02.md`), referencia-os no topo do arquivo principal e **os exclui automaticamente** assim que as pendências são sanadas e o conteúdo volta a caber no arquivo principal.
+
+4. **Aceite de Risco pelo Usuário**:
+   Um achado `Critical`/`High` que só se resolve mudando a spec ou uma decisão de produto pode ser aceito **pelo usuário** (nunca pelo agente) para não travar o projeto. O aceite é rastreável: a severidade original é mantida e a dívida registra quem aceitou, quando, por quê e quando será revista. Falhas do Piso Mecânico (Camada 0) não são aceitáveis, e aceitar uma violação da `constitution.md` exige registrar a exceção na seção 8 dela.
 
 ---
 

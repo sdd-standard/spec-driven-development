@@ -17,4 +17,4 @@ Added the ability for board owners to invite users to a board, granting them rea
 - Public/link-based sharing.
 
 ## Result
-Successfully consolidated into the baseline. Requirements FR-SHARE-001, FR-SHARE-002, FR-SHARE-003 added to `03-requirements.md`. Design decision DES-006 added to `05-design.md`.
+Successfully consolidated into the baseline. Requirements FR-SHARE-001, FR-SHARE-002, FR-SHARE-003 added to `03-requirements.md`; capability CAP-BOARD-002 added to `02-spec.md`; design decision DES-006 added to `05-design.md`; the `BoardMember` entity added to `04-domain-model.md`; acceptance criterion AC-SHARE-001 added to `08-acceptance.md`; and the new chain added to `09-traceability.md`.

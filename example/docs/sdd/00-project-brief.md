@@ -1,4 +1,5 @@
 # 00 — Project Brief
+Status: Approved
 
 ## Vision
 TaskFlow is a lightweight, multi-user task management application designed for small teams. It enables users to organize work into boards, create and assign tasks, and track progress through customizable statuses.

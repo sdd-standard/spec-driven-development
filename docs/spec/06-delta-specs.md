@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de spec/06-delta-specs.md — edite a fonte, não esta cópia. -->
 # 6. The Delta Spec Lifecycle
 
 Unlike Waterfall methodologies which attempt to specify an entire system upfront and freeze it, SDD uses a continuous integration approach to requirements management, inspired by Git's branching and merging model. This is achieved through the **Delta Spec Lifecycle**.

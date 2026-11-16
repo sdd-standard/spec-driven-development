@@ -1,4 +1,5 @@
 # 05 — Design
+Status: Approved
 
 ## Architecture Overview
 
@@ -63,3 +64,9 @@ graph TB
 - **Decision:** All error responses follow the format `{ "error": { "code": "<DOMAIN>-<NNN>", "message": "<human-readable>" } }`.
 - **Rationale:** Machine-parseable error codes enable frontend-specific error handling without brittle string matching on messages.
 - **Related:** FR-AUTH-001, FR-AUTH-002, FR-AUTH-004, FR-BOARD-005, FR-TASK-005, FR-TASK-007.
+
+### DES-006: Board Membership Join Table
+- **Decision:** Board sharing is stored in a `board_members` join table (`board_id`, `user_id`, `role`, `joined_at`), owned by the Task Management context.
+- **Rationale:** A join table keeps the board aggregate unchanged and makes membership queries a single indexed lookup. The `role` column is reserved for future per-board permissions.
+- **Trade-off:** Every board access check now needs a membership lookup in addition to the owner check.
+- **Related:** FR-SHARE-001, FR-SHARE-002, FR-SHARE-003. Consolidated from the archived change `add-board-sharing`.

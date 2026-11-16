@@ -1,4 +1,5 @@
 # 06 — Roadmap
+Status: Approved
 
 ## Phase 1: Foundation (Milestone M1) — Weeks 1–3
 > Authentication domain + project scaffolding.

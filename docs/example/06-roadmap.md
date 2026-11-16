@@ -1,4 +1,6 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de example/docs/sdd/06-roadmap.md — edite a fonte, não esta cópia. -->
 # 06 — Roadmap
+Status: Approved
 
 ## Phase 1: Foundation (Milestone M1) — Weeks 1–3
 > Authentication domain + project scaffolding.

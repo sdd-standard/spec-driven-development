@@ -1,4 +1,6 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de example/docs/sdd/02-spec.md — edite a fonte, não esta cópia. -->
 # 02 — Spec (Capabilities & Intent Blocks)
+Status: Approved
 
 ## Domain: Authentication
 
@@ -40,6 +42,15 @@ Goal:        Allow users to organize work into boards.
 Expectation: Users can create, list, rename, and delete boards they own.
 Action:      RESTful CRUD endpoints for boards with ownership validation.
 Result:      Users have isolated workspaces for different projects or contexts.
+```
+
+### CAP-BOARD-002: Board Sharing
+```
+Intent Block:
+Goal:        Let a board owner collaborate with other team members on the same board.
+Expectation: The owner can invite, list, and remove board members.
+Action:      Sharing endpoints backed by a board membership relation.
+Result:      Invited members read and write tasks on the board; removed members lose access.
 ```
 
 ### CAP-TASK-001: Task CRUD

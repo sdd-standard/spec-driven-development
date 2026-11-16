@@ -55,7 +55,7 @@ hide:
 | **P1** | Spec is the source of truth | Changes start in the spec, never in code |
 | **P2** | Constitution first | Non-negotiable rules govern all phases |
 | **P3** | Spec must be alive | Evolves continuously with software |
-| **P4** | End-to-end traceability | Intent → Requirement → Design → Task → Test → Code |
+| **P4** | End-to-end traceability | Intent → Requirement → Design → Task → Acceptance → Test → Code |
 | **P5** | Requirements must be verifiable | No vague terms; observable metrics only |
 | **P6** | Ambiguity handled early | Unknowns become explicit `PENDING DEFINITION` |
 | **P7** | Design before execution | Architecture formalized before code |

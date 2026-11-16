@@ -1,4 +1,5 @@
 # 01 — Discovery
+Status: Approved
 
 ## Stakeholder Interviews Summary
 - **Product Owner:** Wants a simple, fast tool. No over-engineering. "If it takes more than 2 clicks to create a task, we failed."
@@ -16,7 +17,9 @@
 - C-002: Team size: 2 developers + 1 QA. Delivery timeline: 8 weeks.
 - C-003: No mobile-native app. Responsive web only.
 
-## Non-Functional Requirements (NFRs)
+## Non-Functional Targets
+> Raw targets gathered in discovery. They are formalized as GEARS requirements in `03-requirements.md`.
+
 - **NFR-001 (Performance):** API response time ≤ 200ms (p95) for all CRUD endpoints under 100 concurrent users.
 - **NFR-002 (Availability):** 99.5% uptime SLA (measured monthly).
 - **NFR-003 (Security):** OWASP Top 10 compliance. All inputs sanitized. SQL injection prevention via parameterized queries.

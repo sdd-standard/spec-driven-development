@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de example/docs/sdd/07-tasks.md — edite a fonte, não esta cópia. -->
 # 07 — Tasks (Global Execution Ledger)
 
 > Status values: `Pending` | `In Progress` | `Done` | `Blocked`

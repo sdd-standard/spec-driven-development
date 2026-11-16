@@ -32,6 +32,10 @@ This is a **completed and archived Delta Spec**. It demonstrates the final state
 
 **FR-SHARE-003:** When an authorized user requests the member list for a board, the sharing service shall return the owner and all invited members with their join date.
 
+**DES-006:** Board sharing is stored in a `board_members` join table (`board_id`, `user_id`, `role`, `joined_at`). The `role` column is reserved for future per-board permissions.
+
+**AC-SHARE-001:** Given a board owned by User A and a registered User B, when User A invites User B, lists the members, and later removes User B, then User B gains access (201), appears in the member list, and loses access and task assignments on removal (204).
+
 ---
 
 ## Tasks (All Done)
@@ -47,7 +51,10 @@ This is a **completed and archived Delta Spec**. It demonstrates the final state
 
 After archiving, the following were merged into the baseline:
 
+- **`02-spec.md`**: CAP-BOARD-002 (Board Sharing) added.
 - **`03-requirements.md`**: FR-SHARE-001, FR-SHARE-002, FR-SHARE-003 added.
+- **`04-domain-model.md`**: `BoardMember` entity added to the Board aggregate.
 - **`05-design.md`**: DES-006 (board_members join table) added.
+- **`08-acceptance.md`**: AC-SHARE-001 added.
 - **`09-traceability.md`**: New chain entries for sharing requirements.
 - **`archive/memory-history.md`**: Change summary rotated from `11-project-memory.md`.

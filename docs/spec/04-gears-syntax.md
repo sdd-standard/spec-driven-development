@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de spec/04-gears-syntax.md — edite a fonte, não esta cópia. -->
 # 4. GEARS Syntax vs. Original EARS
 
 The **EARS (Easy Approach to Requirements Syntax)** methodology, developed by Alistair Mavin, was a breakthrough in reducing ambiguity in natural language requirements. However, it was designed for human engineers reading monolithic documents. 

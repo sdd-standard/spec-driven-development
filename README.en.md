@@ -163,7 +163,12 @@ Draft  →  Reviewed  →  Approved
 - **Reviewed**: The user reviewed, asked questions, and the agent adjusted. Critical gaps were resolved.
 - **Approved**: The user explicitly approved. The artifact can be used as a basis for deriving subsequent ones.
 
-No phase advances on artifacts that have not reached at least `Reviewed`. Quality Gates (P9) validate consistency between phases.
+Lifecycle rules:
+- **Only the user promotes an artifact.** The agent never changes an artifact's `Status` on its own; approval may be done in batch ("approve 00 to 02?").
+- **No phase advances on an artifact below `Reviewed`.** When a flow consumes a `Reviewed` artifact that is not yet `Approved` (common in *spec-on-touch*), a **maturity debt** is recorded with a snapshot of the consumed IDs and clause text. On approval, an unchanged snapshot closes the debt; a changed one requires revalidating the dependents first.
+- **`Auto-Approved` items.** The agent may mark an item (`FR`, `NFR`, `DES`, `AC`) as `Auto-Approved` only if it does not touch the Security (4) or Domain Criticality Calibration (6) sections of `constitution.md`, derives 1:1 from an item already approved by the user (or applies a convention written in the constitution), and carries a `Motivo:` (rationale) line. These items are listed in the artifact's approval request and never become `Approved` without a user decision.
+
+Quality Gates (P9) validate consistency between phases.
 
 ### Continuous Evolution via Delta Specs
 After the initial baseline (greenfield), the central specification is not rewritten directly. Changes evolve through **Delta Specs**:
@@ -199,7 +204,10 @@ changes/<change-name>/
    | **`Low`** | **NON-BLOCKING** *(Logged in `10-validation.md`)* | Cosmetic divergence, minor internal naming, or optional optimization beyond `NFR-xxx`. |
 
 3. **Elastic Pagination (*Overflow Sharding* `-02.md`) with Auto-Deletion**:
-   Volatile state artifacts (`10-validation.md` and `11-project-memory.md`) enforce a **150-line cap per file** and a **maximum of 4–5 lines per paragraph** (forbidding giant single-line paragraphs). When legitimate active debts or active fronts exceed 150 lines, the agent creates numbered sibling files (`10-validation-02.md`, `11-project-memory-02.md`), links them in the main header, and **automatically deletes them** once issues are resolved and fit back into the main file.
+   Volatile state artifacts (`10-validation.md` and `11-project-memory.md`) paginate when they reach **150 lines or a character ceiling**, whichever comes first: 16,000 for the debt backlog and, for the memory file (injected into every session), the ceiling defined by each plugin. Some platforms limit how much text a hook may inject, so each plugin injects context by priority within its platform's budget and, when the memory does not fit, injects only its critical sections with an explicit instruction to read the full file. There is no size limit per debt: each `VAL` carries the mandatory fields (what, `file:line` evidence, impact, recommendation, closure criteria and dated history) and is never summarized to fit; debts with independent fronts are split. Once the trigger is reached, the agent creates numbered sibling files (`10-validation-02.md`, `11-project-memory-02.md`), links them in the main header, and **automatically deletes them** once issues are resolved and fit back into the main file.
+
+4. **User Risk Acceptance**:
+   A `Critical`/`High` finding that can only be resolved by changing the spec or a product decision may be accepted **by the user** (never by the agent) so the project is not stalled. The acceptance is traceable: the original severity is kept and the debt records who accepted it, when, why and when it will be reviewed. Layer 0 (mechanical floor) failures cannot be accepted, and accepting a `constitution.md` violation requires recording the exception in its section 8.
 
 ---
 

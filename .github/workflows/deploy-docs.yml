@@ -19,7 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
+      # Piso mecânico: o projeto-exemplo tem de passar na própria guarda de IDs do método.
+      - name: check-ids on the example project
+        run: node scripts/check-ids.mjs example
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -28,8 +32,14 @@ jobs:
         run: |
           pip install mkdocs-material mkdocs-minify-plugin
       
+      # Os espelhos em docs/ são gerados a partir das fontes (README*, spec/, example/),
+      # com links reescritos para o site. Fonte única: nunca edite as cópias em docs/.
+      - name: Generate docs mirrors
+        run: node scripts/sync-docs.mjs
+
+      # --strict: qualquer link interno quebrado (o 404 de example/docs/sdd/...) falha o build.
       - name: Build site
-        run: mkdocs build
+        run: mkdocs build --strict
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

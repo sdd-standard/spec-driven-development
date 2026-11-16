@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de spec/03-principles.md — edite a fonte, não esta cópia. -->
 # 3. The 11 Principles of SDD
 
 Spec-Driven Development is built upon 11 non-negotiable principles. These principles shift the focus of development from code-centric improvisation to specification-centric engineering, optimized for AI agents.
@@ -23,7 +24,7 @@ Spec-Driven Development is built upon 11 non-negotiable principles. These princi
 *   **Foundation:** An AI cannot evaluate "robustness." It can evaluate "rejects the request with code 400 within 200ms." This enforces the formal quality criteria defined in ISO 29148.
 
 ### P6: Ambiguity Handled Early
-*   **Definition:** Gaps are not filled by assumptions. Undefined behaviors become explicit `PENDING DEFINITION` entries and are moved to the risk log (`10-validation.md`).
+*   **Definition:** Gaps are not filled by assumptions. Undefined behaviors become explicit `PENDING DEFINITION` entries (equivalent Portuguese marker: `PENDENTE DE DEFINIÇÃO`) and are moved to the risk log (`10-validation.md`).
 *   **Foundation:** LLMs have a tendency to "hallucinate" or assume missing details to please the user. P6 forces the agent to stop and ask, preserving the integrity of the domain.
 
 ### P7: Design Precedes Execution

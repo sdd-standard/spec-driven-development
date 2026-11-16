@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de spec/01-introduction.md — edite a fonte, não esta cópia. -->
 # 1. Introduction
 
 ## 1.1 The Paradigm Shift in Requirements Engineering

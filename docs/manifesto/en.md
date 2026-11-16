@@ -1,3 +1,4 @@
+<!-- ARQUIVO GERADO por scripts/sync-docs.mjs a partir de README.en.md — edite a fonte, não esta cópia. -->
 # Spec-Driven Development (SDD) — The Canonical Standard
 
 > **The specification is the source of truth. Code must express it, never replace it.**
@@ -7,9 +8,9 @@
 [![Tools: Claude Code](https://img.shields.io/badge/Tooling-Claude%20Code-purple.svg)](#official-implementations-tooling-hub)
 [![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#official-implementations-tooling-hub)
 [![Tools: Hermes Agent](https://img.shields.io/badge/Tooling-Hermes%20Agent-00b894.svg)](#official-implementations-tooling-hub)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/sdd-standard/spec-driven-development/blob/main/LICENSE)
 
-> 🇧🇷 [Leia em Português](./README.md)
+> 🇧🇷 [Leia em Português](pt.md)
 
 ---
 
@@ -50,15 +51,15 @@ flowchart TD
 
 SDD is not just a "manifesto of good intentions." It is a rigorous governance protocol grounded in industry standards (ISO/IEEE 29148, EARS). 
 
-For architects, senior engineers, and plugin developers looking to understand the theory, state machines, and conformance rules behind SDD, please consult our **[Formal Specification](./spec)**.
+For architects, senior engineers, and plugin developers looking to understand the theory, state machines, and conformance rules behind SDD, please consult our **[Formal Specification](../spec/01-introduction.md)**.
 
-*   [01. Introduction (Paradigm Shift & AI Era)](./spec/01-introduction.md)
-*   [02. Terminology](./spec/02-terminology.md)
-*   [03. The 11 Principles Foundation](./spec/03-principles.md)
-*   [04. GEARS Syntax vs EARS](./spec/04-gears-syntax.md)
-*   [05. Artifact Model](./spec/05-artifact-model.md)
-*   [06. Delta Spec Lifecycle](./spec/06-delta-specs.md)
-*   [07. SDD Conformance](./spec/07-conformance.md)
+*   [01. Introduction (Paradigm Shift & AI Era)](../spec/01-introduction.md)
+*   [02. Terminology](../spec/02-terminology.md)
+*   [03. The 11 Principles Foundation](../spec/03-principles.md)
+*   [04. GEARS Syntax vs EARS](../spec/04-gears-syntax.md)
+*   [05. Artifact Model](../spec/05-artifact-model.md)
+*   [06. Delta Spec Lifecycle](../spec/06-delta-specs.md)
+*   [07. SDD Conformance](../spec/07-conformance.md)
 
 ---
 
@@ -163,7 +164,12 @@ Draft  →  Reviewed  →  Approved
 - **Reviewed**: The user reviewed, asked questions, and the agent adjusted. Critical gaps were resolved.
 - **Approved**: The user explicitly approved. The artifact can be used as a basis for deriving subsequent ones.
 
-No phase advances on artifacts that have not reached at least `Reviewed`. Quality Gates (P9) validate consistency between phases.
+Lifecycle rules:
+- **Only the user promotes an artifact.** The agent never changes an artifact's `Status` on its own; approval may be done in batch ("approve 00 to 02?").
+- **No phase advances on an artifact below `Reviewed`.** When a flow consumes a `Reviewed` artifact that is not yet `Approved` (common in *spec-on-touch*), a **maturity debt** is recorded with a snapshot of the consumed IDs and clause text. On approval, an unchanged snapshot closes the debt; a changed one requires revalidating the dependents first.
+- **`Auto-Approved` items.** The agent may mark an item (`FR`, `NFR`, `DES`, `AC`) as `Auto-Approved` only if it does not touch the Security (4) or Domain Criticality Calibration (6) sections of `constitution.md`, derives 1:1 from an item already approved by the user (or applies a convention written in the constitution), and carries a `Motivo:` (rationale) line. These items are listed in the artifact's approval request and never become `Approved` without a user decision.
+
+Quality Gates (P9) validate consistency between phases.
 
 ### Continuous Evolution via Delta Specs
 After the initial baseline (greenfield), the central specification is not rewritten directly. Changes evolve through **Delta Specs**:
@@ -199,7 +205,10 @@ changes/<change-name>/
    | **`Low`** | **NON-BLOCKING** *(Logged in `10-validation.md`)* | Cosmetic divergence, minor internal naming, or optional optimization beyond `NFR-xxx`. |
 
 3. **Elastic Pagination (*Overflow Sharding* `-02.md`) with Auto-Deletion**:
-   Volatile state artifacts (`10-validation.md` and `11-project-memory.md`) enforce a **150-line cap per file** and a **maximum of 4–5 lines per paragraph** (forbidding giant single-line paragraphs). When legitimate active debts or active fronts exceed 150 lines, the agent creates numbered sibling files (`10-validation-02.md`, `11-project-memory-02.md`), links them in the main header, and **automatically deletes them** once issues are resolved and fit back into the main file.
+   Volatile state artifacts (`10-validation.md` and `11-project-memory.md`) paginate when they reach **150 lines or a character ceiling**, whichever comes first: 16,000 for the debt backlog and, for the memory file (injected into every session), the ceiling defined by each plugin. Some platforms limit how much text a hook may inject, so each plugin injects context by priority within its platform's budget and, when the memory does not fit, injects only its critical sections with an explicit instruction to read the full file. There is no size limit per debt: each `VAL` carries the mandatory fields (what, `file:line` evidence, impact, recommendation, closure criteria and dated history) and is never summarized to fit; debts with independent fronts are split. Once the trigger is reached, the agent creates numbered sibling files (`10-validation-02.md`, `11-project-memory-02.md`), links them in the main header, and **automatically deletes them** once issues are resolved and fit back into the main file.
+
+4. **User Risk Acceptance**:
+   A `Critical`/`High` finding that can only be resolved by changing the spec or a product decision may be accepted **by the user** (never by the agent) so the project is not stalled. The acceptance is traceable: the original severity is kept and the debt records who accepted it, when, why and when it will be reviewed. Layer 0 (mechanical floor) failures cannot be accepted, and accepting a `constitution.md` violation requires recording the exception in its section 8.
 
 ---
 
@@ -242,10 +251,10 @@ SDD is the set of essential principles; several open-source projects operational
 ## How to Contribute
 
 Want to adapt SDD for another assistant (Cursor, Roo Code, Copilot Workspace, Windsurf)?  
-Check the contribution guide in [`CONTRIBUTING.md`](./CONTRIBUTING.md) and submit an RFC or new tooling adapter.
+Check the contribution guide in [`CONTRIBUTING.md`](https://github.com/sdd-standard/spec-driven-development/blob/main/CONTRIBUTING.md) and submit an RFC or new tooling adapter.
 
 ---
 
 ## License
 
-This standard and its specifications are distributed under the [MIT](./LICENSE) license.
+This standard and its specifications are distributed under the [MIT](https://github.com/sdd-standard/spec-driven-development/blob/main/LICENSE) license.
