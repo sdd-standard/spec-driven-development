@@ -2,10 +2,11 @@
 
 > **The specification is the source of truth. Code must express it, never replace it.**
 
-[![Standard: Pure SDD](https://img.shields.io/badge/Standard-Pure%20SDD%20v2.0-blue.svg)](#the-11-non-negotiable-principles-p1-to-p11)
+[![Standard: Pure SDD](https://img.shields.io/badge/Standard-Pure%20SDD%20v2.1-blue.svg)](#the-11-non-negotiable-principles-p1-to-p11)
 [![Status: Active](https://img.shields.io/badge/Status-Living%20Standard-brightgreen.svg)](#)
-[![Tools: Claude Code](https://img.shields.io/badge/Tooling-Claude%20Code-purple.svg)](#official-implementations)
-[![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#official-implementations)
+[![Tools: Claude Code](https://img.shields.io/badge/Tooling-Claude%20Code-purple.svg)](#official-implementations-tooling-hub)
+[![Tools: Google Antigravity](https://img.shields.io/badge/Tooling-Google%20Antigravity-orange.svg)](#official-implementations-tooling-hub)
+[![Tools: Hermes Agent](https://img.shields.io/badge/Tooling-Hermes%20Agent-00b894.svg)](#official-implementations-tooling-hub)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 > 🇧🇷 [Leia em Português](./README.md)
@@ -175,20 +176,42 @@ changes/<change-name>/
 ```
 
 **3-State Machine:**
-1. **`proposal`**: Proposal reviewed and approved by the user before any code.
-2. **`apply`**: Execution strictly oriented by the change's tasks.
-3. **`archive`**: The delta is audited, consolidated into the central spec, and archived in `archive/`.
+1. **`proposal`**: With strictly scoped domain inspection, low-friction interviews (3–5 surgical questions with recommended defaults), and proactive scope slicing when a change is too large, the proposal is reviewed and approved by the user before any code.
+2. **`apply`**: Preceded by a `Validate-Gap` check and the authoring of `delta-spec.md` and `tasks.md`, execution is strictly oriented by the change's tasks.
+3. **`archive`**: The delta passes the 3-Layer Passive Quality Gate, is consolidated into the central spec, and is archived in `archive/`.
+
+### Advanced Governance v2.1: 3-Layer Passive Gate, Severity Matrix & Elastic Pagination
+
+1. **3-Layer 100% Passive Quality Gate (`Read-Only`)**:
+   No layer of the gate modifies production code or specifications; all layers strictly inspect and report discrepancies for the implementer agent to fix:
+   - **Layer 0 — Passive Mechanical Floor:** Deterministic ID guard (`check-ids`) + **Say-Do Gate** (audits the session tool ledger to mechanically prove that test/build commands ran with `exit code 0` after the latest code edit).
+   - **Layer 1 — `sdd-validator` Stage 1 (*Spec Compliance*):** Clause-by-clause audit of GEARS requirements (`Where / While / When / shall`) and `AC-xxx` against real code (`file:line`), blocking omissions and unauthorized scope invention (*anti-scope-creep*).
+   - **Layer 2 — `sdd-validator` Stage 2 (*Code & Global Infra Quality*):** Audits adherence to `constitution.md`, security, and interactions with global infrastructure (middlewares, authentication, root routes, database).
+
+2. **Canonical Universal Severity Matrix + Domain Calibration**:
+   Every finding (`VAL-xxx`) is deterministically classified by combining the universal matrix below with the **Domain Criticality Calibration** section in the project's `constitution.md`:
+
+   | Severity | Gate Effect | Objective Definition in Pure SDD |
+   | :--- | :---: | :--- |
+   | **`Critical`** | **BLOCKS** | Direct violation of `constitution.md`, security/data flaw, Layer 0 mechanical failure (`check-ids` orphans or failing/unrun tests after edit), regression, or unfulfilled primary `shall` clause. |
+   | **`High`** | **BLOCKS** | Omitted conditional GEARS clause (`Where`/`While`/`When`), failure in Global Infrastructure (middlewares, auth, root routes, DB), requirement lacking automated test for its `AC-xxx`, or unauthorized *scope creep*. |
+   | **`Medium`** | **NON-BLOCKING** *(Logged in `10-validation.md`)* | Partial deviation from `DES-xxx` without breaking behavior (`FR`/`AC`), missing test only for a secondary edge case, runtime/manual QA verification item, or localized module debt. |
+   | **`Low`** | **NON-BLOCKING** *(Logged in `10-validation.md`)* | Cosmetic divergence, minor internal naming, or optional optimization beyond `NFR-xxx`. |
+
+3. **Elastic Pagination (*Overflow Sharding* `-02.md`) with Auto-Deletion**:
+   Volatile state artifacts (`10-validation.md` and `11-project-memory.md`) enforce a **150-line cap per file** and a **maximum of 4–5 lines per paragraph** (forbidding giant single-line paragraphs). When legitimate active debts or active fronts exceed 150 lines, the agent creates numbered sibling files (`10-validation-02.md`, `11-project-memory-02.md`), links them in the main header, and **automatically deletes them** once issues are resolved and fit back into the main file.
 
 ---
 
 ## Official Implementations (Tooling Hub)
 
-Pure SDD is agnostic. The operationalization of the method is distributed through native plugins developed for the major agentic development tools:
+Pure SDD is agnostic. The operationalization of the method is distributed through native plugins developed for the major agentic development tools and platforms:
 
 | Tool / Platform | Repository | Description |
 |:---|:---|:---|
-| **Google Antigravity IDE** | [`sdd-antigravity`](https://github.com/sdd-standard/sdd-antigravity) | Official plugin for the Google Gemini ecosystem. On-demand skills, shielded validator subagent, memory hooks in PreInvocation, and native rules. |
-| **Claude Code (Anthropic)** | [`sdd-claude`](https://github.com/sdd-standard/sdd-claude) | Official plugin for Claude Code via CLI and VS Code. Model routing (Opus for architecture, Sonnet for code/validation), hooks, and ID guards. |
+| **Google Antigravity IDE** | [`sdd-antigravity`](https://github.com/sdd-standard/sdd-antigravity) | Official plugin for the Google Gemini ecosystem. 8 on-demand skills, 3-Layer Passive Gate, scoped interviews, elastic pagination in PreInvocation hooks, and native rules. |
+| **Claude Code (Anthropic)** | [`sdd-claude`](https://github.com/sdd-standard/sdd-claude) | Official plugin for Claude Code via CLI and VS Code. 8 skills (`/sdd-workflow:*`), model routing (`Opus`/`Sonnet`/`Haiku`), 3-Layer Passive Gate, hooks, and ID guards. |
+| **Hermes Agent (Nous Research)** | [`sdd-hermes`](https://github.com/sdd-standard/sdd-hermes) | Official plugin for the self-hosted autonomous Hermes Agent platform. 8 skills & slash commands, native Python passive tools (`sdd_check_ids` & `sdd_say_do_audit`), `delegate_task` profiles, and learning-loop protection. |
 
 ---
 
@@ -212,7 +235,7 @@ SDD is the set of essential principles; several open-source projects operational
 - **GitHub Spec Kit (`github/spec-kit`)**: Excellent guided flow via sequential commands (`/specify`, `/plan`, `/tasks`, `/implement`).
 - **OpenSpec (`Fission-AI/openspec`)**: Pioneer in the minimalist Delta Specs model (`specs/` vs `changes/`).
 - **BMAD-METHOD**: Structures work into engineering personas (PM, Architect, Scrum Master, QA) with context transfer in story files.
-- **sdd-claude & sdd-antigravity**: The reference implementers of **Pure SDD**, combining the rigor of quality gates, canonical GEARS syntax, and deterministic session persistence.
+- **sdd-claude, sdd-antigravity & sdd-hermes**: The reference implementers of **Pure SDD v2.1**, combining the rigor of 3-layer passive quality gates, canonical GEARS syntax, deterministic severity taxonomy, and elastic session persistence.
 
 ---
 

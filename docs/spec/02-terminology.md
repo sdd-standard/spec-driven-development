@@ -13,13 +13,17 @@ This glossary defines the specific terms and concepts used within the Spec-Drive
 ## Process & Workflow
 
 *   **Milestone:** A logical grouping of tasks that represents a deliverable increment of value. Milestones end with a Quality Gate.
-*   **Quality Gate (Gate de Qualidade):** A mandatory validation checkpoint. An AI agent (e.g., `sdd-validator`) must audit the proposed changes against the Constitution and the defined Requirements before the work can be merged or consolidated.
+*   **Quality Gate (Gate de Qualidade):** A mandatory, **100% passive (`read-only`)** 3-layer validation checkpoint (Layer 0 Mechanical Floor, Layer 1 Strict GEARS Spec Compliance, Layer 2 Code & Global Infra Quality). The gate audits the proposed changes against the Constitution and Requirements without editing any files, reporting discrepancies for the implementer agent to fix.
+*   **Say-Do Gate:** A deterministic Layer 0 check that audits the session's tool execution ledger to mechanically verify that test/build commands were actually executed with `exit code 0` after the latest code modification.
 *   **Delta Spec:** A transient specification artifact (`delta-spec.md`) that describes an incremental change to the system using GEARS syntax (categorized as ADDED, MODIFIED, or REMOVED).
 *   **Change Lifecycle:** The three-state process for implementing system modifications post-baseline:
-    1.  **Proposal:** Definition of *Why* and *What*.
-    2.  **Apply:** Definition of the *Delta Spec* and execution of its *Tasks*.
-    3.  **Archive:** Mechanical validation, consolidation of the delta into the baseline artifacts, and archival of the change folder.
+    1.  **Proposal:** Scoped domain inspection, low-friction interview, proactive scope slicing (when oversized), and definition of *Why* and *What*.
+    2.  **Apply:** `Validate-Gap` check, definition of the *Delta Spec* and its local *Tasks*, followed by guided task execution.
+    3.  **Archive:** 3-Layer Passive Gate validation, consolidation of the delta into the baseline artifacts, debt hygiene, and archival of the change folder.
 *   **Spec-on-Touch:** A strategy used in legacy (Brownfield) projects. Instead of writing a massive retroactive specification, engineers only specify the areas of the system they are actively modifying via a Delta Spec.
+*   **Scoped Inspection & Scope Slicing:** A context-engineering rule requiring the architect agent to inspect only the specific domain/module being modified (never scanning the entire legacy repository at once) and to proactively propose splitting or narrowing changes that are too large.
+*   **Validate-Gap:** A pre-design diagnostic in brownfield changes comparing the existing code of the touched module (*as-built*) against the new GEARS requirements (*to-be*) before defining `DES-xxx` decisions.
+*   **Elastic Pagination (Overflow Sharding):** The mechanism allowing volatile artifacts (`10-validation.md` and `11-project-memory.md`) to stay within their 150-line cap and 4–5 line paragraph density limit by spawning numbered sibling files (`-02.md`) linked in the main header, which are automatically compacted and deleted once debts/fronts are resolved.
 
 ## Syntax & Notation
 

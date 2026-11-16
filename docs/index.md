@@ -70,25 +70,35 @@ hide:
 
 === "Antigravity IDE"
 
-    Install the plugin in your Antigravity workspace:
-    ```
-    .gemini/config/plugins/sdd-workflow/
+    Install the plugin in your Antigravity workspace or global config:
+    ```bash
+    git clone https://github.com/sdd-standard/sdd-antigravity.git .agents/plugins/sdd-workflow
     ```
     Then use the skill: `sdd-init` (greenfield) or `sdd-adopt` (brownfield).
 
 === "Claude Code"
 
-    Install the plugin in your project:
-    ```
-    .claude/plugins/sdd-workflow-plugin/
+    Install the plugin from the official GitHub marketplace:
+    ```text
+    /plugin marketplace add sdd-standard/sdd-claude
+    /plugin install sdd-workflow
     ```
     Then use the command: `/sdd-workflow:init` or `/sdd-workflow:adopt`.
+
+=== "Hermes Agent"
+
+    Install the plugin via the Hermes Agent CLI:
+    ```bash
+    hermes plugins install sdd-standard/sdd-hermes --enable
+    ```
+    Then use the command: `/sdd-init` (greenfield) or `/sdd-adopt` (brownfield).
 
 ---
 
 ## Official Plugins
 
-| Plugin | IDE | Repository |
+| Plugin | Platform / IDE | Repository |
 |:---|:---|:---|
 | **sdd-antigravity** | Google Antigravity IDE | [:material-github: sdd-standard/sdd-antigravity](https://github.com/sdd-standard/sdd-antigravity) |
-| **sdd-claude** | Claude Code | [:material-github: sdd-standard/sdd-claude](https://github.com/sdd-standard/sdd-claude) |
+| **sdd-claude** | Claude Code (Anthropic) | [:material-github: sdd-standard/sdd-claude](https://github.com/sdd-standard/sdd-claude) |
+| **sdd-hermes** | Hermes Agent (Nous Research) | [:material-github: sdd-standard/sdd-hermes](https://github.com/sdd-standard/sdd-hermes) |
